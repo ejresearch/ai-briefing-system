@@ -1,5 +1,4 @@
 services:
-  # Article Service - fetches and serves RSS feed articles
   - type: web
     name: ai-briefing-article-service
     runtime: python
@@ -10,15 +9,3 @@ services:
         value: "3.11"
     healthCheckPath: /health
     autoDeploy: true
-
-  # Node 1 - User Intake Form (optional, if you want to host it too)
-  # - type: web
-  #   name: ai-briefing-intake
-  #   runtime: python
-  #   buildCommand: pip install -r node1_requirements.txt
-  #   startCommand: uvicorn src.node1_backend:app --host 0.0.0.0 --port $PORT
-  #   envVars:
-  #     - key: PYTHON_VERSION
-  #       value: "3.11"
-  #   healthCheckPath: /health
-  #   autoDeploy: true
