@@ -1,8 +1,12 @@
 """
-MCP Article Server
+AI Briefing Article Service
 
-Serves AI newsletter articles for the briefing system.
-Fetches real articles from RSS feeds of popular AI newsletters.
+Fetches and serves AI newsletter articles from RSS feeds.
+Deployed as a standalone service (Render, Docker, etc.)
+
+Endpoints:
+- GET /articles - Fetch articles with optional filters
+- GET /health - Health check
 """
 
 import asyncio
@@ -22,7 +26,11 @@ import re
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="MCP Article Server", version="2.0.0")
+app = FastAPI(
+    title="AI Briefing Article Service",
+    version="2.0.0",
+    description="Fetches AI news from 20 RSS sources"
+)
 
 # CORS for local development
 app.add_middleware(
@@ -352,7 +360,7 @@ async def health():
     """Health check endpoint."""
     return {
         "status": "ok",
-        "service": "MCP Article Server",
+        "service": "AI Briefing Article Service",
         "version": "2.0.0",
         "sources_configured": len([f for f in RSS_FEEDS if f.enabled]),
         "timestamp": datetime.utcnow().isoformat() + "Z"
@@ -364,10 +372,12 @@ async def health():
 # ============================================================================
 
 if __name__ == "__main__":
+    import os
     import uvicorn
+    port = int(os.getenv("PORT", 8002))
     uvicorn.run(
         app,
         host="0.0.0.0",
-        port=8002,
+        port=port,
         log_level="info"
     )

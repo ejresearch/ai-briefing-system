@@ -51,8 +51,8 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Config:
     """Configuration settings for Node 2."""
-    # MCP Server
-    mcp_server_url: str = os.getenv("MCP_SERVER_URL", "http://localhost:8002")
+    # Article Service (can be local or Render URL)
+    article_service_url: str = os.getenv("ARTICLE_SERVICE_URL", "http://localhost:8002")
 
     # OpenAI
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
@@ -695,7 +695,7 @@ class BriefingGenerator:
     def __init__(self, cfg: Config):
         self.config = cfg
         self.profile_loader = ProfileLoader(cfg.profiles_path)
-        self.article_fetcher = ArticleFetcher(cfg.mcp_server_url)
+        self.article_fetcher = ArticleFetcher(cfg.article_service_url)
         self.llm_processor = LLMProcessor(cfg.openai_api_key, cfg.openai_model, cfg.openai_base_url)
         self.email_sender = EmailSender(
             cfg.smtp_server, cfg.smtp_port,
