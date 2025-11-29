@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Briefing System - User Intake Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input[type="email"],
+        input[type="text"],
+        input[type="time"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="email"]:focus,
+        input[type="text"]:focus,
+        input[type="time"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .topics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #f9f9f9;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            margin-right: 8px;
+            accent-color: #667eea;
+        }
+
+        .topic-item label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .alert.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            font-size: 14px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .topics-selected {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI Briefing System</h1>
+            <p>Set up your daily AI newsletter briefing</p>
+        </div>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="intakeForm">
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="your@email.com"
+                    required
+                >
+                <div class="form-hint">We'll send your daily briefing to this email</div>
+            </div>
+
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Name (Optional)</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="John Doe"
+                >
+                <div class="form-hint">How should we address you?</div>
+            </div>
+
+            <!-- Briefing Time -->
+            <div class="form-group">
+                <label for="briefingTime">Preferred Briefing Time <span class="required">*</span></label>
+                <input
+                    type="time"
+                    id="briefingTime"
+                    name="briefingTime"
+                    value="09:00"
+                    required
+                >
+                <div class="form-hint">What time should you receive your daily briefing?</div>
+            </div>
+
+            <!-- Topics -->
+            <div class="form-group">
+                <label>AI Newsletter Topics <span class="required">*</span></label>
+                <div class="topics-container" id="topicsContainer">
+                    <!-- Topics will be populated by JavaScript -->
+                </div>
+                <div class="topics-selected">
+                    Selected: <span id="selectedCount">0</span> topics
+                </div>
+                <div class="form-hint">Select the AI topics you're interested in</div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="reset" class="btn-reset">Clear</button>
+                <button type="submit" class="btn-submit">Create Profile</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <span class="spinner"></span>
+                <span>Creating your profile...</span>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Topic list (matches MCP server configuration)
+        const TOPICS = [
+            "LLMs",
+            "Multimodal Models",
+            "Agents & Automation",
+            "Model Evaluations & Benchmarks",
+            "Safety & Alignment",
+            "OpenAI",
+            "Anthropic",
+            "Google DeepMind",
+            "Meta AI",
+            "Nvidia Hardware",
+            "AI Chips (non-Nvidia)",
+            "Startups & Funding",
+            "AI Infrastructure",
+            "AI Product Launches",
+            "Regulation & Governance",
+            "AI in Healthcare",
+            "AI in Education",
+            "AI in Finance",
+            "AI in Robotics",
+            "AI for Developers",
+            "Model Training & Fine-Tuning",
+            "Prompt Engineering",
+            "Product Design with AI",
+            "AI Research Papers",
+            "AI Ethics & Societal Impact"
+        ];
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            populateTopics();
+            setupEventListeners();
+        });
+
+        function populateTopics() {
+            const container = document.getElementById('topicsContainer');
+            container.innerHTML = '';
+
+            TOPICS.forEach(topic => {
+                const div = document.createElement('div');
+                div.className = 'topic-item';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `topic-${topic}`;
+                checkbox.value = topic;
+                checkbox.addEventListener('change', updateSelectedCount);
+
+                const label = document.createElement('label');
+                label.htmlFor = `topic-${topic}`;
+                label.textContent = topic;
+
+                div.appendChild(checkbox);
+                div.appendChild(label);
+                container.appendChild(div);
+            });
+        }
+
+        function updateSelectedCount() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            document.getElementById('selectedCount').textContent = checkboxes.length;
+        }
+
+        function setupEventListeners() {
+            document.getElementById('intakeForm').addEventListener('submit', handleSubmit);
+        }
+
+        async function handleSubmit(e) {
+            e.preventDefault();
+
+            // Validate
+            const email = document.getElementById('email').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const briefingTime = document.getElementById('briefingTime').value;
+            const selectedTopics = Array.from(
+                document.querySelectorAll('input[type="checkbox"]:checked')
+            ).map(cb => cb.value);
+
+            if (!email) {
+                showAlert('Email is required', 'error');
+                return;
+            }
+
+            if (selectedTopics.length === 0) {
+                showAlert('Please select at least one topic', 'error');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.querySelector('.btn-submit').disabled = true;
+
+            try {
+                // Create user profile object
+                const userProfile = {
+                    version: "1.0",
+                    email: email,
+                    name: name || null,
+                    briefing_time: briefingTime,
+                    topics: selectedTopics,
+                    created_at: new Date().toISOString()
+                };
+
+                // Submit to backend
+                const response = await fetch('/api/intake', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userProfile)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showAlert(
+                        `Profile created! Briefings will be sent to ${email} at ${briefingTime} daily.`,
+                        'success'
+                    );
+                    document.getElementById('intakeForm').reset();
+                    updateSelectedCount();
+
+                    // Redirect after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = '/success';
+                    }, 2000);
+                } else {
+                    showAlert(result.error || 'Failed to create profile', 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('An error occurred. Please try again.', 'error');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.querySelector('.btn-submit').disabled = false;
+            }
+        }
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+
+            // Auto-hide after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>

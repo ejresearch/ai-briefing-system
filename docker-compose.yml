@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  node1-intake:
+    build: .
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./user_profiles.jsonl:/app/user_profiles.jsonl
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python src/node1_backend.py
