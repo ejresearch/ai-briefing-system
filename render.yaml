@@ -1,6 +1,7 @@
 services:
+  # Article Service - RSS feed fetcher
   - type: web
-    name: ai-briefing-article-service
+    name: ai-briefing-articles
     runtime: python
     buildCommand: pip install -r article_service_requirements.txt
     startCommand: uvicorn src.article_service:app --host 0.0.0.0 --port $PORT
@@ -9,3 +10,52 @@ services:
         value: "3.11"
     healthCheckPath: /health
     autoDeploy: true
+
+  # Briefing Generator API - trigger briefings via HTTP
+  - type: web
+    name: ai-briefing-generator
+    runtime: python
+    buildCommand: pip install -r node2_requirements.txt
+    startCommand: uvicorn src.node2_api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: ARTICLE_SERVICE_URL
+        fromService:
+          name: ai-briefing-articles
+          type: web
+          property: hostport
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: FROM_EMAIL
+        sync: false
+    healthCheckPath: /health
+    autoDeploy: true
+
+  # Daily briefing cron job (9 AM UTC)
+  - type: cron
+    name: ai-briefing-daily
+    runtime: python
+    schedule: "0 9 * * *"
+    buildCommand: pip install -r node2_requirements.txt
+    startCommand: python src/node2_briefing_generator.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: ARTICLE_SERVICE_URL
+        fromService:
+          name: ai-briefing-articles
+          type: web
+          property: hostport
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: FROM_EMAIL
+        sync: false
