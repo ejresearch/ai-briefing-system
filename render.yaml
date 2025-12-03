@@ -1,4 +1,16 @@
 services:
+  # Subscription Page - User intake form
+  - type: web
+    name: petra-subscribe
+    runtime: python
+    buildCommand: pip install -r node1_requirements.txt
+    startCommand: uvicorn src.node1_backend:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+    healthCheckPath: /health
+    autoDeploy: true
+
   # Article Service - RSS feed fetcher
   - type: web
     name: petra-articles

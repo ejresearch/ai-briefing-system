@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Petra - Your AI Briefing</title>
+  <title>PETRA - Your AI Briefing</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -12,8 +14,8 @@
     }
 
     body {
-      font-family: Georgia, 'Times New Roman', serif;
-      background-color: #f5f5f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F7F5F0;
       padding: 40px 20px;
       line-height: 1.6;
       color: #2d2d2d;
@@ -22,114 +24,122 @@
     .email-container {
       max-width: 640px;
       margin: 0 auto;
-      background: #ffffff;
-      border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      background: #F7F5F0;
     }
 
-    /* Header Section */
+    /* Header */
     .header {
-      padding: 48px 40px 32px;
-      border-bottom: 1px solid #e8e8e4;
+      background: #2D5A47;
+      padding: 48px 40px 40px;
+      text-align: center;
+      border-radius: 16px 16px 0 0;
     }
 
-    .newsletter-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 32px;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      color: #1a1a1a;
-      margin-bottom: 10px;
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 56px;
+      font-weight: 700;
+      font-style: italic;
+      color: #F7F5F0;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
     }
 
     .date {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: 'Inter', sans-serif;
       font-size: 14px;
-      color: #888;
+      color: rgba(247, 245, 240, 0.85);
       letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     /* Greeting */
     .greeting-section {
+      background: #F7F5F0;
       padding: 32px 40px;
-      border-bottom: 1px solid #e8e8e4;
+      text-align: center;
     }
 
     .greeting {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 22px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
+      font-style: italic;
       color: #2d2d2d;
     }
 
-    /* Landscape Summary */
+    /* The Landscape - Mint */
     .landscape-section {
+      background: #D4E5DC;
       padding: 36px 40px;
-      background: #fafaf8;
-      border-bottom: 1px solid #e8e8e4;
+      border-radius: 12px;
+      margin: 0 20px 16px;
     }
 
     .section-label {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #999;
-      margin-bottom: 16px;
+      letter-spacing: 3px;
+      color: #2D5A47;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #2D5A47;
+      margin-bottom: 20px;
     }
 
     .landscape-text {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 17px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
       line-height: 1.8;
-      color: #3d3d3d;
+      color: #2d2d2d;
     }
 
     .landscape-text p {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .landscape-text p:last-child {
       margin-bottom: 0;
     }
 
-    /* Top Five Articles */
+    /* Top Five - Wheat */
     .top-five-section {
+      background: #F5DEB3;
       padding: 36px 40px;
-      border-bottom: 1px solid #e8e8e4;
-    }
-
-    .section-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: #1a1a1a;
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #1a1a1a;
-      display: inline-block;
-      letter-spacing: 0.5px;
+      border-radius: 12px;
+      margin: 0 20px 16px;
     }
 
     .article-list {
       list-style: none;
+      margin-top: 20px;
     }
 
     .article-item {
       display: flex;
       gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid #eee;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
     }
 
     .article-item:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
 
     .article-number {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 14px;
-      color: #bbb;
-      min-width: 28px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      font-style: italic;
+      color: #2D5A47;
+      min-width: 40px;
     }
 
     .article-content {
@@ -137,70 +147,74 @@
     }
 
     .article-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 17px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
       color: #1a1a1a;
       text-decoration: none;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       line-height: 1.4;
     }
 
     .article-title:hover {
-      color: #4a6fa5;
+      color: #2D5A47;
     }
 
     .article-source {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 13px;
-      color: #999;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    /* Deep Dives */
+    /* Deep Dives - Peach */
     .deep-dives-section {
-      padding: 36px 40px 48px;
+      background: #E8C4A0;
+      padding: 36px 40px;
+      border-radius: 12px;
+      margin: 0 20px 16px;
     }
 
     .deep-dive-item {
-      margin-bottom: 32px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid #eee;
+      background: rgba(255,255,255,0.6);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
     }
 
     .deep-dive-item:last-child {
       margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
     }
 
     .deep-dive-title {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: 22px;
-      color: #1a1a1a;
-      margin-bottom: 14px;
-      text-decoration: none;
-      display: block;
+      font-weight: 700;
+      color: #2D5A47;
+      margin-bottom: 10px;
       line-height: 1.3;
     }
 
     .deep-dive-hook {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       font-style: italic;
-      color: #666;
-      margin-bottom: 14px;
+      color: #2D5A47;
+      margin-bottom: 12px;
+      font-weight: 500;
     }
 
     .deep-dive-excerpt {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 16px;
-      line-height: 1.8;
-      color: #555;
-      margin-bottom: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #444;
     }
 
     .deep-dive-excerpt p {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .deep-dive-excerpt p:last-child {
@@ -208,10 +222,14 @@
     }
 
     .read-more {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 14px;
-      color: #4a6fa5;
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2D5A47;
       text-decoration: none;
+      text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
@@ -222,44 +240,77 @@
     /* Footer */
     .footer {
       padding: 32px 40px;
-      background: #f5f5f0;
       text-align: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 13px;
-      color: #999;
     }
 
-    .footer a {
-      color: #666;
+    .topics-row {
+      margin-bottom: 16px;
     }
 
     .topics-pill {
       display: inline-block;
-      background: #e8e8e4;
-      color: #666;
+      background: #2D5A47;
+      color: #F7F5F0;
+      font-family: 'Inter', sans-serif;
       font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 12px;
-      margin: 2px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+    }
+
+    .footer-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #666;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .footer-links a:hover {
+      color: #2D5A47;
     }
 
     /* Responsive */
     @media (max-width: 600px) {
       body {
-        padding: 20px 12px;
+        padding: 16px 8px;
       }
 
-      .header,
-      .greeting-section,
+      .header {
+        padding: 36px 24px;
+        border-radius: 12px 12px 0 0;
+      }
+
+      .logo {
+        font-size: 42px;
+      }
+
+      .greeting-section {
+        padding: 24px;
+      }
+
       .landscape-section,
       .top-five-section,
-      .deep-dives-section,
-      .footer {
-        padding-left: 24px;
-        padding-right: 24px;
+      .deep-dives-section {
+        margin: 0 8px 12px;
+        padding: 28px 24px;
+        border-radius: 10px;
       }
 
-      .newsletter-title {
+      .section-title {
         font-size: 26px;
       }
 
@@ -269,7 +320,16 @@
       }
 
       .article-number {
+        font-size: 22px;
         min-width: auto;
+      }
+
+      .deep-dive-item {
+        padding: 18px;
+      }
+
+      .footer {
+        padding: 24px;
       }
     }
   </style>
@@ -279,7 +339,7 @@
 
     <!-- Header -->
     <header class="header">
-      <h1 class="newsletter-title">Petra</h1>
+      <h1 class="logo">Petra</h1>
       <p class="date">{{ briefing_date }}</p>
     </header>
 
@@ -288,21 +348,23 @@
       <p class="greeting">Hello, {{ user_name }} —</p>
     </section>
 
-    <!-- Landscape Summary -->
+    <!-- The Landscape - Mint Block -->
     <section class="landscape-section">
-      <p class="section-label">The Landscape</p>
+      <p class="section-label">Section 1</p>
+      <h2 class="section-title">The Landscape</h2>
       <div class="landscape-text">
         <p>{{ landscape | replace('\n\n', '</p><p>') | replace('\n', ' ') | safe }}</p>
       </div>
     </section>
 
-    <!-- Top Five Articles -->
+    <!-- Top Five - Wheat Block -->
     <section class="top-five-section">
+      <p class="section-label">Section 2</p>
       <h2 class="section-title">Your Top Five</h2>
       <ul class="article-list">
         {% for article in top_5_articles %}
         <li class="article-item">
-          <span class="article-number">0{{ loop.index }}</span>
+          <span class="article-number">{{ loop.index }}</span>
           <div class="article-content">
             <a href="{{ article.url }}" class="article-title" target="_blank">{{ article.title }}</a>
             <span class="article-source">{{ article.source }}</span>
@@ -312,19 +374,20 @@
       </ul>
     </section>
 
-    <!-- Deep Dives -->
+    <!-- Deep Dives - Peach Block -->
     <section class="deep-dives-section">
+      <p class="section-label">Section 3</p>
       <h2 class="section-title">Deep Dives</h2>
 
       {% for dive in deep_dives %}
       <article class="deep-dive-item">
-        <span class="deep-dive-title">{{ dive.topic }}</span>
+        <h3 class="deep-dive-title">{{ dive.topic }}</h3>
         <p class="deep-dive-hook">{{ dive.hook }}</p>
         <div class="deep-dive-excerpt">
           <p>{{ dive.analysis | replace('\n\n', '</p><p>') | replace('\n', ' ') | safe }}</p>
         </div>
         {% if dive.related_articles and dive.related_articles|length > 0 %}
-        <a href="{{ dive.related_articles[0] }}" class="read-more" target="_blank">Read source article →</a>
+        <a href="{{ dive.related_articles[0] }}" class="read-more" target="_blank">Read More →</a>
         {% endif %}
       </article>
       {% endfor %}
@@ -332,13 +395,16 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p style="margin-bottom: 12px;">
+      <div class="topics-row">
         {% for topic in user_topics %}
         <span class="topics-pill">{{ topic }}</span>
         {% endfor %}
-      </p>
-      <p>You're receiving this because you subscribed to Petra.</p>
-      <p style="margin-top: 8px;"><a href="{{ unsubscribe_url }}">Unsubscribe</a> · <a href="{{ preferences_url }}">Preferences</a></p>
+      </div>
+      <p class="footer-text">You're receiving this because you subscribed to Petra.</p>
+      <div class="footer-links">
+        <a href="{{ base_url }}/unsubscribe?email={{ user_email }}">Unsubscribe</a>
+        <a href="{{ base_url }}/preferences?email={{ user_email }}">Preferences</a>
+      </div>
     </footer>
 
   </div>

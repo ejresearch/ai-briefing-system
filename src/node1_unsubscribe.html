@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petra - Unsubscribe</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F7F5F0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: #2d2d2d;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .header {
+            background: #2D5A47;
+            padding: 40px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 42px;
+            font-weight: 700;
+            font-style: italic;
+            color: #F7F5F0;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .content h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #2D5A47;
+            margin-bottom: 16px;
+        }
+
+        .content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #2D5A47;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E8E5DC;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #2d2d2d;
+            background: #FAFAF8;
+        }
+
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #2D5A47;
+            background: #ffffff;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        button, .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #666;
+            border: 2px solid #E8E5DC;
+        }
+
+        .btn-cancel:hover {
+            border-color: #2D5A47;
+            color: #2D5A47;
+        }
+
+        .btn-unsubscribe {
+            background: #c75050;
+            color: #ffffff;
+        }
+
+        .btn-unsubscribe:hover {
+            background: #b04545;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .alert.success {
+            background: #D4E5DC;
+            color: #2D5A47;
+            display: block;
+        }
+
+        .alert.error {
+            background: #fdf5f5;
+            color: #8b3a3a;
+            display: block;
+        }
+
+        .footer {
+            padding: 24px 40px;
+            background: #F7F5F0;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .footer a {
+            color: #2D5A47;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Petra</h1>
+        </header>
+
+        <div class="content">
+            <div id="alert" class="alert"></div>
+
+            <div id="unsubscribe-form">
+                <h2>Unsubscribe</h2>
+                <p>We're sorry to see you go. Enter your email below to unsubscribe from Petra briefings.</p>
+
+                <form id="form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="button-group">
+                        <a href="/" class="btn btn-cancel">Never mind</a>
+                        <button type="submit" class="btn btn-unsubscribe">Unsubscribe</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="success-message" style="display: none;">
+                <h2>You've been unsubscribed</h2>
+                <p>You won't receive any more briefings from Petra. If you change your mind, you can always <a href="/" style="color: #2D5A47; font-weight: 500;">resubscribe</a>.</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Changed your mind? <a href="/preferences">Update preferences</a> instead.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Pre-fill email from URL params (from email link)
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('email')) {
+                document.getElementById('email').value = params.get('email');
+            }
+        });
+
+        document.getElementById('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+
+            try {
+                const response = await fetch('/api/unsubscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    document.getElementById('unsubscribe-form').style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+                } else {
+                    const data = await response.json();
+                    showAlert(data.error || 'Something went wrong', 'error');
+                }
+            } catch (error) {
+                showAlert('Unable to connect. Please try again.', 'error');
+            }
+        });
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+        }
+    </script>
+</body>
+</html>

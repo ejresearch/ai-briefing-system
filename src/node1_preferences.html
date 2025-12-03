@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petra - Preferences</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F7F5F0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: #2d2d2d;
+        }
+
+        .container {
+            max-width: 540px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: #2D5A47;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 42px;
+            font-weight: 700;
+            font-style: italic;
+            color: #F7F5F0;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .content h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #2D5A47;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .content > p {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #2D5A47;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input[type="email"],
+        input[type="time"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E8E5DC;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #2d2d2d;
+            background: #FAFAF8;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2D5A47;
+            background: #ffffff;
+        }
+
+        .topics-section {
+            background: #D4E5DC;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .topics-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .topic-pill {
+            display: inline-flex;
+        }
+
+        .topic-pill input[type="checkbox"] {
+            display: none;
+        }
+
+        .topic-pill label {
+            display: inline-block;
+            padding: 8px 14px;
+            background: #ffffff;
+            border: 2px solid #E8E5DC;
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-bottom: 0;
+        }
+
+        .topic-pill label:hover {
+            border-color: #2D5A47;
+            color: #2D5A47;
+        }
+
+        .topic-pill input[type="checkbox"]:checked + label {
+            background: #2D5A47;
+            border-color: #2D5A47;
+            color: #ffffff;
+        }
+
+        .topics-selected {
+            font-size: 13px;
+            color: #2D5A47;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        button, .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #666;
+            border: 2px solid #E8E5DC;
+        }
+
+        .btn-cancel:hover {
+            border-color: #2D5A47;
+            color: #2D5A47;
+        }
+
+        .btn-save {
+            background: #2D5A47;
+            color: #ffffff;
+        }
+
+        .btn-save:hover {
+            background: #234536;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: none;
+            text-align: center;
+        }
+
+        .alert.success {
+            background: #D4E5DC;
+            color: #2D5A47;
+            display: block;
+        }
+
+        .alert.error {
+            background: #fdf5f5;
+            color: #8b3a3a;
+            display: block;
+        }
+
+        .footer {
+            padding: 24px 40px;
+            background: #F7F5F0;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .footer a {
+            color: #2D5A47;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .content, .header {
+                padding: 24px;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Petra</h1>
+        </header>
+
+        <div class="content">
+            <h2>Update Preferences</h2>
+            <p>Customize your daily briefing.</p>
+
+            <div id="alert" class="alert"></div>
+
+            <form id="form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Delivery Time</label>
+                    <input type="time" id="time" name="time" value="09:00">
+                </div>
+
+                <div class="topics-section">
+                    <label>Your Interests</label>
+                    <div class="topics-container" id="topicsContainer"></div>
+                    <div class="topics-selected">
+                        <span id="selectedCount">0</span> topics selected
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <a href="/" class="btn btn-cancel">Cancel</a>
+                    <button type="submit" class="btn btn-save">Save Changes</button>
+                </div>
+            </form>
+        </div>
+
+        <footer class="footer">
+            <p>Want to stop receiving briefings? <a href="/unsubscribe">Unsubscribe</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const TOPICS = [
+            "LLMs", "Multimodal Models", "Agents & Automation",
+            "Model Evaluations & Benchmarks", "Safety & Alignment",
+            "OpenAI", "Anthropic", "Google DeepMind", "Meta AI",
+            "Nvidia Hardware", "AI Chips (non-Nvidia)",
+            "Startups & Funding", "AI Infrastructure", "AI Product Launches",
+            "Regulation & Governance", "AI in Healthcare", "AI in Education",
+            "AI in Finance", "AI in Robotics", "AI for Developers",
+            "Model Training & Fine-Tuning", "Prompt Engineering",
+            "Product Design with AI", "AI Research Papers", "AI Ethics & Societal Impact"
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateTopics();
+
+            // Pre-fill from URL params
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('email')) {
+                document.getElementById('email').value = params.get('email');
+            }
+        });
+
+        function populateTopics() {
+            const container = document.getElementById('topicsContainer');
+            TOPICS.forEach(topic => {
+                const div = document.createElement('div');
+                div.className = 'topic-pill';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `topic-${topic}`;
+                checkbox.value = topic;
+                checkbox.addEventListener('change', updateCount);
+
+                const label = document.createElement('label');
+                label.htmlFor = `topic-${topic}`;
+                label.textContent = topic;
+
+                div.appendChild(checkbox);
+                div.appendChild(label);
+                container.appendChild(div);
+            });
+        }
+
+        function updateCount() {
+            const count = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            document.getElementById('selectedCount').textContent = count;
+        }
+
+        document.getElementById('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const time = document.getElementById('time').value;
+            const topics = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+
+            if (topics.length === 0) {
+                showAlert('Please select at least one topic', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/preferences', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, briefing_time: time, topics })
+                });
+
+                if (response.ok) {
+                    showAlert('Preferences saved successfully!', 'success');
+                } else {
+                    const data = await response.json();
+                    showAlert(data.error || 'Something went wrong', 'error');
+                }
+            } catch (error) {
+                showAlert('Unable to connect. Please try again.', 'error');
+            }
+        });
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+        }
+    </script>
+</body>
+</html>

@@ -482,13 +482,14 @@ class LLMProcessor:
 
         if result and "top_5" in result:
             # Enrich LLM response with original article data (source, url, keywords)
+            # IMPORTANT: Always use original URL to prevent LLM hallucination
             enriched = []
             for item in result["top_5"]:
                 title = item.get("title", "")
                 original = article_lookup.get(title, {})
                 enriched.append({
-                    **original,  # source, url, keywords, relevance from original
-                    **item,      # rank, why_selected from LLM
+                    **item,      # rank, why_selected, summary from LLM
+                    **original,  # source, url, keywords, relevance from original (overrides LLM)
                 })
             return enriched
 
@@ -514,6 +515,18 @@ class LLMProcessor:
         result = await self._call_llm(system_prompt, user_prompt, max_tokens=2000)
 
         if result and "deep_dives" in result:
+            # Validate URLs - only keep URLs that exist in our article pool
+            valid_urls = {a.get("url", "") for a in articles if a.get("url")}
+
+            for dive in result["deep_dives"]:
+                # Filter related_articles to only valid URLs
+                original_urls = dive.get("related_articles", [])
+                validated_urls = [url for url in original_urls if url in valid_urls]
+                dive["related_articles"] = validated_urls
+
+                if len(validated_urls) < len(original_urls):
+                    logger.warning(f"Filtered {len(original_urls) - len(validated_urls)} invalid URLs from deep dive")
+
             return result["deep_dives"]
 
         return []
@@ -613,9 +626,15 @@ class EmailSender:
             for d in briefing.deep_dives
         ]
 
+        # Get base URL for links (defaults to Render service URL)
+        import os
+        base_url = os.getenv("SUBSCRIBE_URL", "https://petra-subscribe.onrender.com")
+
         return template.render(
             user_name=user.name or "there",
+            user_email=user.email,
             briefing_date=briefing_date,
+            base_url=base_url,
             # The Landscape
             landscape=briefing.landscape.content,
             # Your Top 5
@@ -625,9 +644,7 @@ class EmailSender:
             # Meta
             articles_analyzed=briefing.articles_analyzed,
             sources_count=briefing.sources_count,
-            user_topics=user.topics,
-            preferences_url="#",
-            unsubscribe_url="#"
+            user_topics=user.topics
         )
 
     def send_email(

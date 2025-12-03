@@ -73,11 +73,14 @@ TOP5_SYSTEM = """You are selecting the top 5 most relevant articles for a reader
 
 The reader's interests: {user_topics}
 
+CRITICAL: Each article must cover a DIFFERENT topic or story. Do not select multiple articles about the same news event, product, or announcement. Prioritize diversity of coverage.
+
 Rank by:
-1. Direct relevance to their stated topics (most important)
-2. Significance of the news (major announcements > minor updates)
-3. Actionability (things they might need to know or act on)
-4. Recency and freshness"""
+1. Topic diversity (no duplicates - each article should be about something different)
+2. Direct relevance to their stated topics
+3. Significance of the news (major announcements > minor updates)
+4. Actionability (things they might need to know or act on)
+5. Recency and freshness"""
 
 TOP5_USER = """From these {num_articles} article summaries, select the top 5 for this reader:
 
@@ -115,6 +118,8 @@ DEEP_DIVE_USER = """Based on today's {num_articles} articles:
 
 Identify 3 hot topics that intersect with the reader's interests and provide a deep dive on each.
 
+IMPORTANT: For related_articles, you MUST use exact URLs from the articles listed above. Do not make up or guess URLs.
+
 Return JSON:
 {{
   "deep_dives": [
@@ -122,7 +127,7 @@ Return JSON:
       "topic": "Topic name (2-4 words)",
       "hook": "One compelling sentence that draws them in",
       "analysis": "2-3 paragraph analysis (150-200 words). What's happening, why it matters, what to watch.",
-      "related_articles": ["url1", "url2"]
+      "related_articles": ["exact URL from articles above", "another exact URL from articles above"]
     }}
   ]
 }}"""
@@ -193,8 +198,9 @@ def build_deep_dive_prompt(user_topics: list[str], articles: list[dict]) -> tupl
     """Build system and user prompts for deep dive analysis."""
     system = DEEP_DIVE_SYSTEM.format(user_topics=format_topics(user_topics))
 
+    # Include URLs so the LLM can reference real articles
     articles_text = "\n".join([
-        f"- {a['title']}: {a['summary']} (keywords: {', '.join(a.get('keywords', []))})"
+        f"- {a['title']}: {a['summary']} (keywords: {', '.join(a.get('keywords', []))}) URL: {a.get('url', '')}"
         for a in articles
     ])
 

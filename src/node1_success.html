@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You're Subscribed - Petra</title>
+    <title>Petra - Welcome</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,8 +14,8 @@
         }
 
         body {
-            font-family: Georgia, 'Times New Roman', serif;
-            background-color: #f5f5f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F7F5F0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -24,23 +26,39 @@
         }
 
         .container {
-            max-width: 480px;
+            max-width: 540px;
             width: 100%;
             background: #ffffff;
-            border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
             text-align: center;
         }
 
+        /* Header */
         .header {
-            padding: 48px 40px 32px;
-            border-bottom: 1px solid #e8e8e4;
+            background: #2D5A47;
+            padding: 48px 40px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 48px;
+            font-weight: 700;
+            font-style: italic;
+            color: #F7F5F0;
+            letter-spacing: 2px;
+        }
+
+        /* Content */
+        .content {
+            padding: 48px 40px;
         }
 
         .checkmark {
-            width: 64px;
-            height: 64px;
-            border: 2px solid #1a1a1a;
+            width: 80px;
+            height: 80px;
+            background: #D4E5DC;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -49,86 +67,107 @@
         }
 
         .checkmark svg {
-            width: 32px;
-            height: 32px;
-            stroke: #1a1a1a;
-            stroke-width: 2;
+            width: 40px;
+            height: 40px;
+            stroke: #2D5A47;
+            stroke-width: 3;
             fill: none;
         }
 
-        .header h1 {
-            font-family: Georgia, 'Times New Roman', serif;
+        .content h2 {
+            font-family: 'Playfair Display', Georgia, serif;
             font-size: 28px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-        }
-
-        .header p {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 16px;
-            color: #666;
-            line-height: 1.7;
-        }
-
-        .content {
-            padding: 36px 40px;
-            background: #fafaf8;
-            border-bottom: 1px solid #e8e8e4;
-        }
-
-        .section-label {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #999;
+            font-weight: 700;
+            color: #2D5A47;
             margin-bottom: 16px;
         }
 
         .content p {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 15px;
-            color: #555;
-            line-height: 1.8;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.7;
         }
 
-        .footer {
-            padding: 32px 40px;
-        }
-
-        .btn-home {
-            display: inline-block;
-            padding: 14px 32px;
-            background: #1a1a1a;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 2px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-size: 14px;
+        .highlight {
+            background: #D4E5DC;
+            color: #2D5A47;
+            padding: 16px 24px;
+            border-radius: 8px;
+            margin: 24px 0;
             font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: background 0.2s;
         }
 
-        .btn-home:hover {
-            background: #333;
+        /* What to Expect */
+        .what-to-expect {
+            background: #F7F5F0;
+            padding: 32px 40px;
+            text-align: left;
         }
 
+        .what-to-expect h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2D5A47;
+            margin-bottom: 16px;
+        }
+
+        .expect-list {
+            list-style: none;
+        }
+
+        .expect-list li {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #555;
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .expect-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2D5A47;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 24px 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .footer a {
+            color: #2D5A47;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
         @media (max-width: 600px) {
-            body {
-                padding: 20px 12px;
-            }
-
             .header,
             .content,
+            .what-to-expect,
             .footer {
                 padding-left: 24px;
                 padding-right: 24px;
             }
 
             .header h1 {
+                font-size: 36px;
+            }
+
+            .content h2 {
                 font-size: 24px;
             }
         }
@@ -136,28 +175,39 @@
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header class="header">
+            <h1>Petra</h1>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
             <div class="checkmark">
                 <svg viewBox="0 0 24 24">
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
             </div>
-            <h1>You're all set</h1>
-            <p>Your personalized AI briefing is on its way.</p>
-        </header>
+            <h2>You're all set!</h2>
+            <p>Welcome to Petra. Your personalized AI briefing is on its way.</p>
 
-        <section class="content">
-            <p class="section-label">What happens next</p>
-            <p>
-                Tomorrow morning, you'll receive your first briefing with
-                the top AI stories curated just for you. Each day we'll
-                scan dozens of sources and surface what matters most
-                based on your interests.
-            </p>
-        </section>
+            <div class="highlight">
+                Your first briefing arrives tomorrow morning.
+            </div>
+        </div>
 
+        <!-- What to Expect -->
+        <div class="what-to-expect">
+            <h3>What to expect</h3>
+            <ul class="expect-list">
+                <li><strong>The Landscape</strong> — A quick overview of what's happening in AI today</li>
+                <li><strong>Your Top 5</strong> — The most relevant articles for your interests</li>
+                <li><strong>Deep Dives</strong> — In-depth analysis on the topics that matter most</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
         <footer class="footer">
-            <a href="/" class="btn-home">Back to Home</a>
+            <p>Questions? Reply to any briefing or email <a href="mailto:Petra@ellejansick.com">Petra@ellejansick.com</a></p>
         </footer>
     </div>
 </body>

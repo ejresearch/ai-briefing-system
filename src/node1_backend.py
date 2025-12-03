@@ -166,6 +166,51 @@ async def success():
     return FileResponse("src/node1_success.html", media_type="text/html")
 
 
+@app.get("/unsubscribe")
+async def unsubscribe_page():
+    """Unsubscribe page."""
+    return FileResponse("src/node1_unsubscribe.html", media_type="text/html")
+
+
+@app.get("/preferences")
+async def preferences_page():
+    """Preferences page."""
+    return FileResponse("src/node1_preferences.html", media_type="text/html")
+
+
+@app.post("/api/unsubscribe")
+async def unsubscribe(data: dict):
+    """Unsubscribe a user."""
+    email = data.get("email")
+    if not email:
+        raise HTTPException(status_code=400, detail="Email is required")
+
+    # Mark as unsubscribed in the profiles file
+    logger.info(f"Unsubscribe request for {email}")
+
+    # For now, just log it - in production would update database
+    return {"status": "success", "message": f"Unsubscribed {email}"}
+
+
+@app.post("/api/preferences")
+async def update_preferences(data: dict):
+    """Update user preferences."""
+    email = data.get("email")
+    if not email:
+        raise HTTPException(status_code=400, detail="Email is required")
+
+    topics = data.get("topics", [])
+    briefing_time = data.get("briefing_time", "09:00")
+
+    if not topics:
+        raise HTTPException(status_code=400, detail="At least one topic is required")
+
+    logger.info(f"Preferences update for {email}: {len(topics)} topics, time: {briefing_time}")
+
+    # For now, just log it - in production would update database
+    return {"status": "success", "message": "Preferences updated"}
+
+
 @app.get("/health")
 async def health():
     """Health check endpoint."""

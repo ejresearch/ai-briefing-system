@@ -79,7 +79,10 @@ class FeedConfig:
 
 # AI Newsletter RSS Feeds
 RSS_FEEDS = [
-    # Substack AI Writers (most reliable)
+    # Daily AI Newsletters (Substack - have RSS)
+    FeedConfig("AI Adopters", "https://aiadopters.substack.com/feed"),
+
+    # Substack AI Writers
     FeedConfig("Import AI", "https://importai.substack.com/feed"),
     FeedConfig("AI Supremacy", "https://aisupremacy.substack.com/feed"),
     FeedConfig("One Useful Thing", "https://www.oneusefulthing.org/feed"),
@@ -88,10 +91,9 @@ RSS_FEEDS = [
     FeedConfig("Semi Analysis", "https://semianalysis.substack.com/feed"),
     FeedConfig("Latent Space", "https://www.latent.space/feed"),
     FeedConfig("The Gradient", "https://thegradientpub.substack.com/feed"),
-    FeedConfig("Davis Summarizes Papers", "https://dblalock.substack.com/feed"),
     FeedConfig("Ahead of AI", "https://magazine.sebastianraschka.com/feed"),
 
-    # Tech News with AI Coverage (reliable)
+    # Tech News with AI Coverage
     FeedConfig("The Verge AI", "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"),
     FeedConfig("Ars Technica AI", "https://feeds.arstechnica.com/arstechnica/technology-lab"),
     FeedConfig("VentureBeat AI", "https://venturebeat.com/category/ai/feed/"),
